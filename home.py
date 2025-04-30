@@ -21,13 +21,32 @@ content_frame = None
 
 def create_home():
     #clearing all exisiting widgets 
-    for widget in root.winfo_children():
+    for widget in content_frame.winfo_children():
         widget.destroy()
     Label(content_frame, text="Welcome To Quick Times Challenge", font=("Arial", 18), bg="darkblue", fg="white").pack(pady=50)
 
+def steup_layout():
+    global content_frame
+
+    #Creating the sidebar
+    sidebar = Frame(root, bg="lightblue", width=200)
+    sidebar.pack(side=LEFT, fill=Y)
+
+    tk.Label(sidebar, text="MENU", font=("Arial", 16, "bold"), bg="lightblue", fg="darkblue").pack(pady=20)
+
+    Button(sidebar, text="HOME", width=20, height=2, bg="lightblue", fg="darkblue", font=("Arial", 12), command=create_home).pack(pady=10)
+    Button(sidebar, text="Times Table Resource", width=20, height=2, bg="lightblue", fg="lightblue", font=("Arial", 12), command=show_resource).pack(pady=10)
+    Button(sidebar, text="Times Table Quiz", width=20, height=2, bg="lightblue", fg="darkblue", font=("Arial", 16), command=start_quiz)
+
+    #Creating content area
+    content_frame = Frame(root, bg="darkblue")
+    content_frame.pack(side=RIGHT, fill=BOTH, expand=TRUE)
+
+    create_home()
+    
 def show_resource():
     #show 1 to 15 times tables 
-    for widget in root.winfo_children():
+    for widget in content_frame.winfo_children():
         widget.destroy()
 
     Button(root, text="BACK", command=create_home).pack(anchor='nw', padx=10, pady=10)
