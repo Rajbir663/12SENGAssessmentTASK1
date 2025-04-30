@@ -43,46 +43,57 @@ def steup_layout():
     content_frame.pack(side=RIGHT, fill=BOTH, expand=TRUE)
 
     create_home()
-    
+
 def show_resource():
     #show 1 to 15 times tables 
     for widget in content_frame.winfo_children():
         widget.destroy()
+    Label(content_frame, text="Times Tables from 1 to 12", font=("Arial", 14), fg="white", bg="darkblue").pack(pady=10)
 
-    Button(root, text="BACK", command=create_home).pack(anchor='nw', padx=10, pady=10)
-    Label(root, text="Times Tables from 1 to 12", font=("Arial",14), fg="white", bg="darkblue").pack(pady=10)
+    Label(content_frame, text="Multiplication Chart", font=("Arial", 16, "bold"), bg="#00bfff", fg="white").pack(pady=10)
 
-    tk.Label(text="Multiplication Chart", font=("Arial", 16, "bold"), bg="#00bfff", fg="white").pack(pady=10)
-    res_img = ImageTk.PhotoImage(Image.open("resource.jpg"))
-    chart_label = tk.Label(image=res_img, bg="#00bfff")
-    chart_label.image = res_img  # Keep a reference to the image
-    chart_label.pack()
+    try:
+        res_img = ImageTk.PhotoImage(Image.open("resource.jpg"))
+        chart_label = tk.Label(content_frame, image=res_img, bg="#00bfff")
+        chart_label.image = res_img
+        chart_label.pack()
+    except Exception as e:
+        Label(content_frame, text="Resource image not found.", font=("Arial", 14), bg="darkblue", fg="red").pack(pady=10)
 
-selection = StringVar()
-def sel():
-   difficulty_level = selection.get()
-
+def update_selected_label():
+    selected_label.config(text=f"Difficulty: {difficulty.get().capitalize()}")
 
 def start_quiz():
     global question_label, answer_entry, feedback_label
 
-    for widget in root.winfo_children():
+    for widget in content_frame.winfo_children():
         widget.destroy()
     
-    Button(root, text="Back", command=create_home).pack(anchor='nw', padx=10, pady=10)
+    #creating a frame for the difficulty selection part
+    difficulty_frame = LabelFrame(content_frame, text="Select Difficulty", font=("Arial", 12), fg="white", bg="darkblue", bd=2, relief="groove", padx=10, pady=10, labelanchor="n")
+    difficulty_frame.pack(pady=10, fill=X, padx=20)
 
     #Difficulty selection section
     difficulty_frame = LabelFrame(root, text="Select Difficulty", font=("Arial", 12), fg="white", bg="darkblue", bd=2, relief="groove", padx=10, pady=10, labelanchor="n")
     difficulty_frame.pack(pady=10)
 
+    #positioning the buttons in the difficulty selection frame 
+    difficulty_buttons_frame = Frame(difficulty_frame, bg="darkblue")
+    difficulty_buttons_frame.pack(side=LEFT)
+
     #Creating radio buttons for the difficulty selection
-    Radiobutton(difficulty_frame, text="Easy", variable=difficulty, value="easy",  command=sel, state="active",
+    Radiobutton(difficulty_buttons_frame, text="Easy", variable=difficulty, value="easy", command=update_selected_label,
                 bg='darkblue', fg='white', font=("Arial", 11)).pack(anchor='w')
-    Radiobutton(difficulty_frame, text="Medium", variable=difficulty, value="medium", command=sel,
+    Radiobutton(difficulty_buttons_frame, text="Medium", variable=difficulty, value="medium", command=update_selected_label,
                 bg='darkblue', fg='white', font=("Arial", 11)).pack(anchor='w')
-    Radiobutton(difficulty_frame, text="Hard", variable=difficulty, value="hard", command=sel,
-                bg='darkblue', fg='white',font=("Arial", 11)).pack(anchor='w')
+    Radiobutton(difficulty_buttons_frame, text="Hard", variable=difficulty, value="hard", command=update_selected_label,
+                bg='darkblue', fg='white', font=("Arial", 11)).pack(anchor='w')
     
+    #making a label for the selected difficulty
+    selected_label = Label(difficulty_frame, text=f"Difficulty: {difficulty.get().capitalize()}", font=("Arial", 12),
+                            fg="yellow", bg="darkblue")
+    selected_label.pack(side=RIGHT, padx=20)
+
     question_label = Label(root, text="", font=("Arial", 14), fg="white", bg="darkblue")
     question_label.pack(pady=10)
 
@@ -90,6 +101,7 @@ def start_quiz():
     answer_entry.pack()
 
     Button(root, text="Submit", command=check_answer).pack(pady=10)
+    
     feedback_label = Label(root, text="", font=("Arial", 12), fg='yellow', bg='darkblue')
     feedback_label.pack()
 
