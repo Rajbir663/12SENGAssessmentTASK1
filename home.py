@@ -13,39 +13,17 @@ difficulty = tk.StringVar(value="easy")
 #Creating global variables for the quizz to keep on checking the user input and comparing with the answer.
 question = ""
 answer = 0
-difficulty_level=""
-#Creating widgets for the quizz (also done golbally so they can be accessed later)
 question_label = None
 answer_entry = None
 feedback_label = None
-
+selected_label = None
+content_frame = None
 
 def create_home():
     #clearing all exisiting widgets 
     for widget in root.winfo_children():
         widget.destroy()
-
-    Label1 = Label(root,text="Hello and Welcome to Quick Times Challenge",
-               font =("Arial", 18),
-               bg ="lightblue",
-               fg ="darkblue",
-               padx = 20, # adds horizontal space to the left and right of a widget
-               pady = 10, # adds vertical space to the top and bottom of the widget
-               relief ="flat",
-               borderwidth= 2) # creating a label widget wiht options
-    Label1.pack() # shoving the label on to the screen
-    Label2 = Label(root,text="Please chose your option from below",
-               font =("Arial", 18),
-               bg ="lightblue",
-               fg ="darkblue",
-               padx = 20, # adds horizontal space to the left and right of a widget
-               pady = 10, # adds vertical space to the top and bottom of the widget
-               relief ="flat",
-               borderwidth= 2) # creating a label widget wiht options
-    Label2.pack() # shoving the label on to the screen
-
-    Button(root, text="Times Table Resource", width=20, height=10, bg="lightblue", fg="darkblue", font=("Arial", 14), command=show_resource).place(x=400, y=250)
-    Button(root, text="Times Table Quiz", width=20, height=10, bg="lightblue", fg="darkblue", font=("Arial", 14), command=start_quiz).place(x=900, y=250)
+    Label(content_frame, text="Welcome To Quick Times Challenge", font=("Arial", 18), bg="darkblue", fg="white").pack(pady=50)
 
 def show_resource():
     #show 1 to 15 times tables 
@@ -79,7 +57,7 @@ def start_quiz():
     difficulty_frame.pack(pady=10)
 
     #Creating radio buttons for the difficulty selection
-    Radiobutton(difficulty_frame, text="Easy", variable=difficulty, value="easy", state=ACTIVE, command=sel,
+    Radiobutton(difficulty_frame, text="Easy", variable=difficulty, value="easy",  command=sel, state="active",
                 bg='darkblue', fg='white', font=("Arial", 11)).pack(anchor='w')
     Radiobutton(difficulty_frame, text="Medium", variable=difficulty, value="medium", command=sel,
                 bg='darkblue', fg='white', font=("Arial", 11)).pack(anchor='w')
