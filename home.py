@@ -19,12 +19,14 @@ feedback_label = None
 selected_label = None
 content_frame = None
 
+#creating home page
 def create_home():
     for widget in content_frame.winfo_children():
         widget.destroy()
 
     Label(content_frame, text="Welcome to Quick Times Challenge", font=("Arial", 18), bg="darkblue", fg="white").pack(pady=50)
 
+#creating the layout of the app page
 def setup_layout():
     global content_frame
 
@@ -44,6 +46,7 @@ def setup_layout():
 
     create_home()
 
+#showing the resource image 
 def show_resource():
     for widget in content_frame.winfo_children():
         widget.destroy()
@@ -62,6 +65,7 @@ def show_resource():
 def update_selected_label():
     selected_label.config(text=f"Difficulty: {difficulty.get().capitalize()}")
 
+#starting the quiz and creating the quiz page 
 def start_quiz():
     global question_label, answer_entry, feedback_label, selected_label
 
@@ -98,6 +102,7 @@ def start_quiz():
 
     next_question()
 
+#creating the questions for the quiz to display and creating the feedback label
 def next_question():
     global question, answer
 
