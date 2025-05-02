@@ -26,6 +26,12 @@ def create_home():
 
     Label(content_frame, text="Welcome to Quick Times Challenge", font=("Arial", 18), bg="darkblue", fg="white").pack(pady=50)
 
+    # Load and place the background image
+    bg_image = tk.PhotoImage(file="HOME_PAGE1.png")
+    background_label = tk.Label(content_frame, image=bg_image)
+    background_label.image = bg_image  # Keep a reference!
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 #creating the layout of the app page
 def setup_layout():
     global content_frame
@@ -52,10 +58,8 @@ def show_resource():
         widget.destroy()
 
     Label(content_frame, text="Times Tables from 1 to 12", font=("Arial", 14), fg="white", bg="darkblue").pack(pady=10)
-
-    Label(content_frame, text="Multiplication Chart", font=("Arial", 16, "bold"), bg="#00bfff", fg="white").pack(pady=10)
     try:
-        res_img = ImageTk.PhotoImage(Image.open("resource.jpg"))
+        res_img = tk.PhotoImage(file="resource2.png")
         chart_label = tk.Label(content_frame, image=res_img, bg="#00bfff")
         chart_label.image = res_img
         chart_label.pack()
