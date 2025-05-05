@@ -82,6 +82,7 @@ def start_quiz():
     difficulty_buttons_frame = Frame(difficulty_frame, bg="darkblue")
     difficulty_buttons_frame.pack(side=LEFT)
 
+    #creating buttons for the difficulty levels in the quiz 
     Radiobutton(difficulty_buttons_frame, text="Easy", variable=difficulty, value="easy", command=update_selected_label,
                 bg='darkblue', fg='white', font=("Arial", 11)).pack(anchor='w')
     Radiobutton(difficulty_buttons_frame, text="Medium", variable=difficulty, value="medium", command=update_selected_label,
@@ -93,10 +94,10 @@ def start_quiz():
                             fg="yellow", bg="darkblue")
     selected_label.pack(side=RIGHT, padx=20)
 
-    question_label = Label(content_frame, text="", font=("Arial", 14), fg="white", bg="darkblue")
+    question_label = Label(content_frame, text="", font=("Arial", 14), fg="white", bg="darkblue") #question label to display the question to the user
     question_label.pack(pady=10)
 
-    answer_entry = Entry(content_frame, font=("Arial", 14))
+    answer_entry = Entry(content_frame, font=("Arial", 14)) #textbox for the user to input answer
     answer_entry.pack()
 
     Button(content_frame, text="Submit", command=check_answer).pack(pady=10)
@@ -119,6 +120,7 @@ def next_question():
     answer_entry.delete(0, END)
     feedback_label.config(text="")
 
+#Function for checking the answer from the user  
 def check_answer():
     user_input = answer_entry.get()
     if user_input.isdigit():
