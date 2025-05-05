@@ -131,7 +131,7 @@ def check_answer():
             feedback_label.config(text=f"Wrong! The answer was {answer}.")
         root.after(1500, next_question)
     else:
-        messagebox.showerror("Invalid Input", "Please enter a number.")
+        messagebox.showerror("Invalid Input", "Please enter a nu.")
 
 # Run the setup
 setup_layout()
